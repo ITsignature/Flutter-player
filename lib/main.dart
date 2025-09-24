@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_links/app_links.dart';
 import 'player_screen.dart';
+import 'package:screen_protector/screen_protector.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -22,7 +23,28 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _protectScreens();
     _initDeepLinks();
+  }
+
+
+ Future<void> _protectScreens() async {
+    // Blocks screenshots/screen recording on Android; no-op on iOS (per docs)
+    await ScreenProtector.protectDataLeakageOn();         // Android only :contentReference[oaicite:1]{index=1}
+    await ScreenProtector.preventScreenshotOn();           // Android + iOS supported API name :contentReference[oaicite:2]{index=2}
+
+    // iOS: observe events and react (e.g., overlay or pause player)
+    ScreenProtector.addListener(
+      () {
+        // Screenshot taken (iOS)
+        debugPrint('📸 iOS screenshot detected');
+        // TODO: show overlay / pause via navigatorKey + JS call if you want
+      },
+      (bool isRecording) {
+        debugPrint('🎥 iOS recording: $isRecording');
+        // TODO: show/hide overlay or pause/resume the WebView video
+      },
+    );
   }
 
   Future<void> _initDeepLinks() async {
@@ -48,6 +70,16 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+
+
+    @override
+  void dispose() {
+    ScreenProtector.removeListener();                       // iOS observer off :contentReference[oaicite:3]{index=3}
+    ScreenProtector.preventScreenshotOff();                 // cleanup :contentReference[oaicite:4]{index=4}
+    ScreenProtector.protectDataLeakageOff();                // cleanup :contentReference[oaicite:5]{index=5}
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,0 +1,544 @@
+/**
+ * Project: ITS Video Player
+ * File: its-video-player.css
+ * Description: Styles for the custom video player.
+ * 
+ * Author: ITSignature Pvt Ltd
+ * Website: https://www.itsignature.lk
+ * 
+ * Created: YYYY-MM-DD
+ * Last Updated: YYYY-MM-DD
+ * Version: 1.0.0
+ * 
+ * License: Proprietary and Confidential
+ * 
+ * Copyright (c) 2025 ITSignature Pvt Ltd. All Rights Reserved.
+ * 
+ * This file is the sole property of ITSignature Pvt Ltd. Unauthorized 
+ * copying, modification, distribution, or disclosure of this file, 
+ * in whole or in part, is strictly prohibited without prior written 
+ * permission from ITSignature Pvt Ltd.
+ */
+
+/* Add animation for title */
+@keyframes marquee {
+    from {
+      transform: translateX(100%);
+    }
+  
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+  #fullscreen-title {
+    position: absolute;
+    top: 50%;
+    color: white;
+    z-index: 9999;
+    opacity: 0.2;
+  }
+  
+  /* Fullscreen styling */
+  .fullscreen-container:-webkit-full-screen {
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out,
+      height 0.5s ease-in-out;
+    transform-origin: center;
+    width: 100% !important;
+    height: 100% !important;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Hide video initially */
+  .fullscreen-container {
+    display: none;
+  }
+  
+  /* Stylish button */
+  .fullscreen-button {
+    display: flex;
+    width: 300px;
+    height: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fullscreen-button.success {
+    display: flex;
+    width: 300px;
+    height: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, rgb(72, 117, 42), rgb(2, 56, 11));
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fullscreen-button svg {
+    display: show;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .fullscreen-button:hover {
+    background: linear-gradient(45deg, #ff4b2b, rgb(221, 40, 82));
+    box-shadow: 0px 7px 20px rgba(253, 60, 26, 0.6);
+  }
+  
+  .speed-control {
+    position: absolute;
+    bottom: 3.5rem;
+    right: 1rem;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .speed-control button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    margin: 0 2px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .speed-control button.active {
+    background: #ff416c;
+    border-color: #ff416c;
+  }
+  
+  .controls-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 1);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    opacity: 1; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* Prevent blocking clicks when hidden */
+  }
+  
+  body.hide-controls {
+    cursor: none;
+  }
+  
+  .controls-container.hidden {
+    opacity: 0; /* Hide controls */
+    pointer-events: none;
+  }
+  
+  .play-pause-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .seek-bar {
+    flex-grow: 1;
+    height: 5px;
+    background: #444;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ff416c;
+  }
+  
+  .time-display {
+    color: white;
+    font-family: Arial;
+    font-size: 14px;
+    min-width: 100px;
+    text-align: center;
+  }
+  
+  .fullscreen-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    /* Light transparent overlay */
+    pointer-events: all;
+    /* Makes overlay non-interactive */
+    z-index: 999;
+    touch-action: manipulation;
+    /* Prevent double-tap zoom */
+  }
+  
+  .video-overlay.red {
+    /* background: rgba(255, 0, 0, 0.2); */
+    background: transparent;
+  }
+  
+  .video-overlay.blue {
+    /* background: rgba(0, 0, 255, 0.2); */
+    background: transparent;
+  }
+  
+  .controls-container {
+    pointer-events: auto;
+  }
+  
+  .play-pause-btn,
+  .seek-bar,
+  .speed-control button,
+  .fullscreen-btn {
+    pointer-events: auto;
+  }
+  
+  .videoPlayer {
+    pointer-events: none;
+    /* Disables click and interactions on the video */
+  }
+  
+  .skip-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    color: white;
+    display: none;
+    z-index: 1000;
+  }
+  
+  .skip-icon.show {
+    display: block;
+  }
+  
+  .skip-backward {
+    left: 10%;
+  }
+  
+  .skip-forward {
+    right: 10%;
+  }
+  
+  .play-pause-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    display: none;
+  }
+  
+  .volume-control {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: Arial;
+    margin-left: 1rem;
+  }
+  
+  .volumeSlider {
+    width: 100px;
+    height: 5px;
+    background: #444;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ff416c;
+  }
+  
+  .speed-control,
+  .quality-control {
+    display: none;
+  }
+  
+  .quality-control {
+    position: absolute;
+    bottom: 3rem;
+    right: 1rem;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .quality-control button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .quality-control button.active {
+    background-color: #555;
+    color: white;
+  }
+  
+  .top-overlay {
+    position: absolute;
+    top: 0;
+    background: black;
+    z-index: 9999;
+    padding: 10px;
+    width: 100%;
+    height: 3.5rem;
+  }
+  
+  .top-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+    /* Prevent interactions when hidden */
+  }
+  
+  .rotate-90 {
+    transform: rotate(90deg);
+  }
+  
+  /* Adjusted dimensions for rotation */
+  .rotated-dimensions {
+    width: 100vh;
+    height: 100vw;
+    top: 0;
+    left: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .top-exit-fullscreen-btn-container {
+    /* Positioning and layout */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  
+    /* Background */
+    background-color: transparent;
+  
+    /* Spacing */
+    padding: 0.25rem; /* p-1 (4px) */
+    padding-top: 0.25rem; /* py-1 (4px) */
+    padding-bottom: 2rem; /* pb-8 (32px) */
+  
+    /* Border */
+    border-radius: 0.25rem; /* rounded (4px) */
+  }
+  
+  /* Optional: Add hover states and transitions */
+  .top-exit-fullscreen-btn-container button {
+    color: #ffffff; /* text-white */
+    background-color: #1f2937; /* bg-gray-800 */
+    background-opacity: 1;
+    padding: 0.5rem; /* p-2 (8px) */
+    padding-left: 0.875rem; /* px-3.5 (14px) */
+    padding-right: 0.875rem; /* px-3.5 (14px) */
+    border-radius: 9999px; /* rounded-full */
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    z-index: 10000;
+  }
+  
+  .top-exit-fullscreen-btn-container button:hover {
+    background-color: #111827; /* Darker gray for hover state */
+  }
+  
+  .top-exit-fullscreen-btn-container button:active {
+    transform: scale(0.95);
+  }
+  
+  /* Base modal styles with its- prefix */
+  .its-modal {
+    display: none;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 99999999999 !important;
+  }
+  
+  .its-modal-content {
+    background: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 80%;
+    /* max-width: 600px; */
+    position: relative;
+    animation: its-fadeIn 0.3s ease-in-out;
+  }
+  
+  .its-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #aaa;
+  }
+  
+  .its-close:hover {
+    color: #000;
+  }
+  
+  @keyframes its-fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Fullscreen specific styles */
+  .its-fullscreen {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .its-btn {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ff0000;
+    /* YouTube's iconic red */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  /* Play icon (triangle) */
+  .its-btn::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    /* Triangle dimensions */
+    border-color: transparent transparent transparent #ffffff;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover effects */
+  .its-btn:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Active state (when pressed) */
+  .its-btn:active {
+    transform: translate(-50%, -50%) scale(0.95);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Focus state for accessibility */
+  .its-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Pulse animation (optional) */
+  @keyframes its-pulse {
+    0% {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+  
+    50% {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+  
+    100% {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+  }
+  
+  .its-btn.playing::before {
+    animation: its-pulse 1.5s infinite;
+  }

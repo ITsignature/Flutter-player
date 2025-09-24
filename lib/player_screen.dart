@@ -36,7 +36,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     const iosFilePath = 'assets/player/player.html';
 
     return Scaffold(
-      appBar: AppBar(title: const Text('ITS Platinum Player')),
+    //   appBar: AppBar(title: const Text('ITS Platinum Player')),
       body: InAppWebView(
         initialSettings: InAppWebViewSettings(
           javaScriptEnabled: true,

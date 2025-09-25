@@ -27,12 +27,40 @@
     background: linear-gradient(45deg, #396d3b, rgb(2, 170, 55)) !important;
     box-shadow: 0px 7px 20px rgba(21, 228, 93, 0.6) !important;
   }
+
+  /* ✅ Button styles */
+  #btn-more-recordings {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1040; /* keep it below modal backdrop (modal is 1050+) */
+    border-radius: 999px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  }
+
+  /* ✅ Hide button when modal is open */
+  body.modal-open #btn-more-recordings {
+    display: none;
+  }
+
+  /* ✅ Add margin for modal so it doesn’t stick to top */
+  .modal-dialog {
+    margin-top: 3.5rem;
+  }
+
+  /* ✅ Adjust button lower on small screens */
+  @media (max-width: 576px) {
+    #btn-more-recordings {
+      top: 3.5rem;
+    }
+  }
 </style>
 
 <body>
   <div class="col-12">
-    <button id="btn-more-recordings" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoListModal"
-      style="z-index: 9999999; position: absolute; right: 1rem; top: 1rem;">
+       <button id="btn-more-recordings" type="button" class="btn btn-primary"
+      data-bs-toggle="modal" data-bs-target="#videoListModal">
       More Recordings
     </button>
 
@@ -53,7 +81,8 @@
         </div>
         <div class="modal-body">
           <div class="col-12">
-            <div class="row" id="video-list-container"></div>
+            <!-- <div class="row" id="video-list-container"></div> -->
+             <div class="row row-cols-3 row-cols-md-4 g-2" id="video-list-container"></div>
           </div>
         </div>
         <div class="modal-footer">

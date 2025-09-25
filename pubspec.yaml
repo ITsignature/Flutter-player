@@ -21,19 +21,34 @@ version: 1.0.0+1
 environment:
   sdk: ^3.9.0
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/app.ico"
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#DFE2E2"   # background color
+  adaptive_icon_foreground: "assets/images/logo.png"
+  min_sdk_android: 21
+  icon_size: 1.25   # 1.0 = default, >1 zooms in, <1 shrinks
+
 
 
 flutter_native_splash:
-  color: "#ffffff"                     # background color of splash
-  image: assets/images/splash.png      # centered splash image
-  android_12:                          # Android 12+ uses the new SplashScreen API
-    image: assets/images/splash.png    # (Android 12 doesn’t support full bg images)
-    color: "#ffffff"
-    color_dark: "#ffffff"  
+  android: true
+  ios: true
+  web: false
+  color: "#DFE2E2"
+  color_dark: "#DFE2E2"
+  image: assets/images/6.png
+  image_dark: assets/images/6.png
+  android_gravity: center
+  ios_content_mode: scaleAspectFit
+  android_12:
+    image: assets/images/6.png
+    color: "#DFE2E2"
+    color_dark: "#DFE2E2"
+
+
+  # white → light blue
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -46,6 +61,8 @@ dependencies:
   app_links: ^6.3.2
   flutter_inappwebview: ^6.0.0
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.6
+  upgrader: ^11.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

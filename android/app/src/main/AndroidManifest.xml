@@ -1,6 +1,14 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        package="com.example.itsignature_player">
+
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
-        android:label="itsignature_player"
+        android:label="ITS"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -238,9 +238,9 @@ if (!token) {
             videoListContainer.innerHTML = "";
 
             videoList.forEach(videoId => {
-                let div = `<div class="col-3 position-relative" onclick="initPlayer(&quot;${videoId}&quot;)" style="cursor: pointer;">
+                let div = `<div class="col position-relative" onclick="initPlayer(&quot;${videoId}&quot;)" style="cursor: pointer;">
               <img src="https://i.ytimg.com/vi/${atob(videoId)}/hqdefault.jpg" class="img-fluid w-100">
-              <button class="btn btn-danger px-2 rounded-circle position-absolute top-50 start-50 translate-middle">
+              <button class="btn btn-sm btn-danger px-2 rounded-circle position-absolute top-50 start-50 translate-middle">
                 ▶
               </button>
             </div>`

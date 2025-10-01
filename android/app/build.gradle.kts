@@ -1,3 +1,12 @@
+import java.util.Properties
+
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        load(keystorePropertiesFile.inputStream())
+    }
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -6,7 +15,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.itsignature_player"
+    namespace = "com.itsignature.itsignature_player"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +30,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.itsignature_player"
+        applicationId = "com.itsignature.itsignature_player"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -30,11 +39,38 @@ android {
         versionName = flutter.versionName
     }
 
+
+ // --- SIGNING (Kotlin DSL) ---
+    signingConfigs {
+        create("release") {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            } else {
+                // Optional: keep buildable without signing file
+                println("WARNING: key.properties not found; release signing is not configured.")
+            }
+        }
+    }
+
+    // --- BUILD TYPES (Kotlin DSL) ---
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        // Optional: sign debug with the same key (useful for testing)
+        getByName("debug") {
+            // signingConfig = signingConfigs.getByName("release")
+            // isMinifyEnabled = false
+            // isShrinkResources = false
         }
     }
 }

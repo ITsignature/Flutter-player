@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:tools="http://schemas.android.com/tools"
-                        package="com.example.itsignature_player">
+                        package="com.itsignature.itsignature_player">
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -59,4 +59,12 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    
+      <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="https" />
+    </intent>
+  </queries>
 </manifest>
